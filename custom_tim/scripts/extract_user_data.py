@@ -1,6 +1,6 @@
 import csv
 
-with open('../All_users_eternal_swolemates.csv') as csv_file:
+with open('../data/All_users_eternal_swolemates_20190115_1404.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     user_list = []
@@ -18,26 +18,26 @@ followers_list = []
 followed_by_list = []
 not_following_back = []
 for row in user_list:
-    if row[6] == 'TRUE':
+    if row[8] == 'TRUE':
         followed_by_list.append(row)
-    if row[7] == 'TRUE':
+    if row[9] == 'TRUE':
         followers_list.append(row)
-    if row[6] == 'TRUE' and row[7] == 'FALSE':
+    if row[8] == 'TRUE' and row[9] == 'FALSE':
         not_following_back.append(row[1])
     if row[11] == 'TRUE':
         print row[11] + ' has blocked you'
 
-print not_following_back
+print '\nnum followers: ' + str(len(followers_list))
+print '\nnum following: ' + str(len(followed_by_list))
 print str(len(not_following_back)) + ' users not following you back'
 
 print '\nwriting not_following_back-ers to csv...'
-with open('../not_following_back.csv', mode='w') as _file:
+with open('../data/not_following_back.csv', mode='w') as _file:
     _writer = csv.writer(_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     for row in not_following_back:
         _writer.writerow([row,])
-        print row
 
-with open('../not_following_back.csv') as csv_file:
+with open('../data/not_following_back.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for row in csv_reader:
         print row

@@ -25,7 +25,20 @@ for row in user_list:
     if row[6] == 'TRUE' and row[7] == 'FALSE':
         not_following_back.append(row[1])
     if row[11] == 'TRUE':
-        print row[1] + ' has blocked you'
+        print row[11] + ' has blocked you'
 
 print not_following_back
 print str(len(not_following_back)) + ' users not following you back'
+
+print '\nwriting not_following_back-ers to csv...'
+with open('../not_following_back.csv', mode='w') as _file:
+    _writer = csv.writer(_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    for row in not_following_back:
+        _writer.writerow([row,])
+        print row
+
+with open('../not_following_back.csv') as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    for row in csv_reader:
+        print row
+print('\ndone')

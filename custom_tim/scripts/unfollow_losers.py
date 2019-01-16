@@ -38,9 +38,5 @@ succesful_login = False
 succesful_login = ig.login(driver,'3_times_a_sadie','Aminus')
 
 if not succesful_login:
-    try:
-        print driver.title
-        print "Finished, closing now."
-
-    finally:
-        driver.quit()
+    print "Unsuccessful login, closing now."
+    driver.quit()

@@ -40,3 +40,8 @@ def login(browser,username,password):
     ActionChains(browser).move_to_element(login_button).click().perform()
 
     return True
+
+def navigate_to_profile(browser,username):
+    print 'nav to ' + username + '\'s profile'
+    url = "https://instagram.com/" + username
+    browser.get(url)

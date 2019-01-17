@@ -41,4 +41,4 @@ if not succesful_login:
     print "Unsuccessful login, closing now."
     driver.quit()
 
-ig.navigate_to_profile(driver,'aaron243smith')
+ig.unfollow_from_profile(driver,'aaron243smith')

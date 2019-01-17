@@ -39,9 +39,14 @@ def login(browser,username,password):
     print 'logging in...'
     ActionChains(browser).move_to_element(login_button).click().perform()
 
+    time.sleep(1)
+
     return True
 
 def navigate_to_profile(browser,username):
     print 'nav to ' + username + '\'s profile'
     url = "https://instagram.com/" + username
     browser.get(url)
+
+def unfollow_from_profile(browser):
+    print 'fake unfollow'

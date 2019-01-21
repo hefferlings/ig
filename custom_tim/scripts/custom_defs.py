@@ -89,7 +89,7 @@ def read_helper_tools_csv(filename,save_losers):
             if row[followers_row] == 'TRUE':
                 followers_list.append(row)
             if row[following_row] == 'TRUE' and row[followers_row] == 'FALSE':
-                not_following_back.append(row[1])
+                not_following_back.append(row[username_row])
 
     print '\nnum followers: ' + str(len(followers_list))
     print 'num following: ' + str(len(following_list))

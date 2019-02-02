@@ -17,7 +17,7 @@ while not losers_flag:
     losers_file = raw_input("losers csv filename: ")
     try:
         print 'fake open: ' + losers_file
-        #open file here
+        losers_list = ig.read_helper_tools_csv(losers_file)
         losers_flag = True
     except:
         print "Invalid file, please enter a valid csv file."
@@ -41,4 +41,4 @@ if not succesful_login:
     print "Unsuccessful login, closing now."
     driver.quit()
 
-ig.unfollow_from_profile(driver,'aaron243smith')
+ig.unfollow_list_from_profile(driver,losers_list)

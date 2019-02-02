@@ -49,10 +49,15 @@ def unfollow_from_profile(browser,username):
     print 'nav to ' + username + '\'s profile'
     url = "https://instagram.com/" + username
     browser.get(url)
-    print 'fake unfollow'
+    print 'fake unfollow ' + username + '\n'
 
 ###############################################################
-def read_helper_tools_csv(filename,save_losers):
+def unfollow_list_from_profile(browser,list):
+    for user in list:
+        unfollow_from_profile(browser,user)
+
+###############################################################
+def read_helper_tools_csv(filename,save_losers=False):
 
     with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -94,6 +99,8 @@ def read_helper_tools_csv(filename,save_losers):
     print '\nnum followers: ' + str(len(followers_list))
     print 'num following: ' + str(len(following_list))
     print str(len(not_following_back)) + ' users not following you back'
+
+    return not_following_back
 
     save_losers = False
     if save_losers:

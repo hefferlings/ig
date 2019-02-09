@@ -46,10 +46,56 @@ def login(browser,username,password):
 
 ###############################################################
 def unfollow_from_profile(browser,username):
-    print 'nav to ' + username + '\'s profile'
+    print '\nnav to ' + username + '\'s profile'
     url = "https://instagram.com/" + username
     browser.get(url)
-    print 'fake unfollow ' + username + '\n'
+    print 'unfollowing ' + username + '...\n'
+    time.sleep(1)    
+    
+    follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
+    follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
+    unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
+    unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
+
+    print '\nno. of follow_elems: ', len(follow_elems)
+    print 'no. of unfollow_elems: ', len(unfollow_elems)
+    print 'no. of unfollow_confirm_elems: ', len(unfollow_confirm_elems)
+    
+    if unfollow_elems:
+        ActionChains(browser).move_to_element(unfollow_elems[0]).click().perform()
+
+        follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
+        follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
+        unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
+        unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
+        
+        print '\nno. of follow_elems after click: ', len(follow_elems)
+        print 'no. of unfollow_elems after click: ', len(unfollow_elems)
+        print 'no. of unfollow_confirm_elems after click: ', len(unfollow_confirm_elems)
+
+        if unfollow_confirm_elems:
+            ActionChains(browser).move_to_element(unfollow_confirm_elems[0]).click().perform()
+            time.sleep(1)
+        else:
+            print 'no unfollow confirm button, aborting...'
+    
+        follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
+        follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
+        unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
+        unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
+        
+        print '\nno. of follow_elems after 2nd click: ', len(follow_elems)
+        print 'no. of unfollow_elems after 2nd click: ', len(unfollow_elems)
+        print 'no. of unfollow_confirm_elems after 2nd click: ', len(unfollow_confirm_elems)
+
+        if follow_elems:
+            print "unfollow action successful, hopefully they never find out..."
+
+    else:
+        print 'no unfollow button, skipping...'
+
+
+    time.sleep(1)
 
 ###############################################################
 def unfollow_list_from_profile(browser,list):
@@ -65,8 +111,6 @@ def read_helper_tools_csv(filename,save_losers=False):
         user_list = []
         for row in csv_reader:
             if line_count == 0:
-                print('Column names are:')
-                print(", ".join(row))
                 col_names = row
                 line_count += 1
             else:

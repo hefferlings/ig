@@ -81,6 +81,8 @@ def unfollow_from_profile(browser,username):
 
         if follow_elems:
             print "unfollow action successful, hopefully they never find out..."
+            time.sleep(1)
+            return True
 
     else:
         print 'no unfollow button, skipping...'

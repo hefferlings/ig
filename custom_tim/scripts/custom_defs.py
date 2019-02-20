@@ -75,8 +75,11 @@ def unfollow_from_profile(browser,username):
     
         # get follow/unfollow element again to check for unfollow success
         follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
+        follow_elems += browser.find_elements_by_xpath("//div/button[text()='Follow']")
         follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
+        follow_elems += browser.find_elements_by_xpath("//div/button[text()='Follow Back']")
         unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
+        unfollow_elems += browser.find_elements_by_xpath("//div/button[text()='Following']")
         unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
 
         if follow_elems:

@@ -46,7 +46,7 @@ if not succesful_login:
     driver.quit()
 
 
-losers_test_list = ['xtreme_fitness_gyms']
+losers_test_list = ['xtreme_fitness_gyms','astrumlife_painfree','kahuna.cf','train2play_','transformwithkeisha','braian_valadez','rogrunner']
 losers_test_list_backup = ['atomictattoossarasotasquare','myboxjuizdefora','weight_liffting_lover','acbraith','hookahgermany_',
 'voicecollective,freefollowersxns','madmusclecell','tee.athletics','mishamarkofitness',
 'tunedin.athletics','kd_elite_sports','katealcaraz','jamestjunior','gym_map','kris_leonard_',

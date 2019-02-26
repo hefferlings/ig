@@ -49,47 +49,43 @@ def unfollow_from_profile(browser,username):
     print '\nnav to ' + username + '\'s profile'
     url = "https://instagram.com/" + username
     browser.get(url)
-    print 'unfollowing ' + username + '...\n'
+    print 'unfollowing ' + username + '...'
     time.sleep(1)    
     
+    # get follow/unfollow button element
     follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
     follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
     unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
     unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
-
-    print '\nno. of follow_elems: ', len(follow_elems)
-    print 'no. of unfollow_elems: ', len(unfollow_elems)
-    print 'no. of unfollow_confirm_elems: ', len(unfollow_confirm_elems)
     
     if unfollow_elems:
         ActionChains(browser).move_to_element(unfollow_elems[0]).click().perform()
 
+        # get follow/unfollow element again to check for unfollow confirm dialog
         follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
         follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
         unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
         unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
-        
-        print '\nno. of follow_elems after click: ', len(follow_elems)
-        print 'no. of unfollow_elems after click: ', len(unfollow_elems)
-        print 'no. of unfollow_confirm_elems after click: ', len(unfollow_confirm_elems)
 
         if unfollow_confirm_elems:
             ActionChains(browser).move_to_element(unfollow_confirm_elems[0]).click().perform()
             time.sleep(1)
         else:
-            print 'no unfollow confirm button, aborting...'
+            print 'no unfollow confirm button, skipping...'
     
+        # get follow/unfollow element again to check for unfollow success
         follow_elems = browser.find_elements_by_xpath("//span/button[text()='Follow']")
+        follow_elems += browser.find_elements_by_xpath("//div/button[text()='Follow']")
         follow_elems += browser.find_elements_by_xpath("//span/button[text()='Follow Back']")
+        follow_elems += browser.find_elements_by_xpath("//div/button[text()='Follow Back']")
         unfollow_elems = browser.find_elements_by_xpath("//span/button[text()='Following']")
+        unfollow_elems += browser.find_elements_by_xpath("//div/button[text()='Following']")
         unfollow_confirm_elems = browser.find_elements_by_xpath("//div/button[text()='Unfollow']")
-        
-        print '\nno. of follow_elems after 2nd click: ', len(follow_elems)
-        print 'no. of unfollow_elems after 2nd click: ', len(unfollow_elems)
-        print 'no. of unfollow_confirm_elems after 2nd click: ', len(unfollow_confirm_elems)
 
         if follow_elems:
             print "unfollow action successful, hopefully they never find out..."
+            time.sleep(1)
+            return True
 
     else:
         print 'no unfollow button, skipping...'

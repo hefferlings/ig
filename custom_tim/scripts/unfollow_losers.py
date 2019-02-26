@@ -16,7 +16,7 @@ import custom_defs as ig
 losers_flag = False
 while not losers_flag:
     # losers_file = raw_input("losers csv filename: ")
-    losers_file = '../data/All_users_eternal_swolemates_20190212_1447.csv'
+    losers_file = '/home/mahonri/ig/custom_tim/data/All_users_eternal_swolemates_20190212_1447.csv'
     try:
         print 'Opening: ' + losers_file
         losers_list = ig.read_helper_tools_csv(losers_file)

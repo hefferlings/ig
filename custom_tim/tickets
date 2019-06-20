@@ -1,7 +1,10 @@
 TODO
 
-private password input
+#####finished##### private password input
 like util
 follow util
 verify successful ig login to valid user profile
 add counts to utils
+add chromedriver to repo
+add chromedriver location to path in install script
+create a "Sorry, this page isn\'t available" page handling for url's that don't exist

@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
-import time,sys
+import time,sys,csv
 import getpass
 import custom_defs as ig
 
@@ -20,9 +20,19 @@ while not losers_flag:
     try:
         print 'Opening: ' + losers_file
         losers_list = ig.read_helper_tools_csv(losers_file)
+################### TMP STUFF DELETE LATER ##########
+        losers_list = []
+        filename = '/home/mahonri/ig/custom_tim/data/new_losers.csv'
+        with open(filename) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for row in csv_reader:
+                losers_list.append(row[0])
+#####################################################
         losers_flag = True
-    except:
+    except Exception as e:
+        print e
         print "Invalid file, please enter a valid csv file."
+        sys.exit()
 
 username = raw_input("Username: ")
 password = getpass.getpass()
@@ -34,25 +44,23 @@ driver = webdriver.Chrome()
 # go to ig.com
 print 'nav to ig.com'
 driver.get("https://instagram.com/")
-
 # wait for page to load
 time.sleep(5)
 
 succesful_login = False
+username = 'eternal_swolemates'
+password = 'browner7'
 succesful_login = ig.login(driver,username,password)
 
 if not succesful_login:
     print "Unsuccessful login, closing now."
     driver.quit()
+    sys.exit()
 
 
-losers_test_list = ['xtreme_fitness_gyms','astrumlife_painfree','kahuna.cf','train2play_','transformwithkeisha','braian_valadez','rogrunner']
-losers_test_list_backup = ['atomictattoossarasotasquare','myboxjuizdefora','weight_liffting_lover','acbraith','hookahgermany_',
-'voicecollective,freefollowersxns','madmusclecell','tee.athletics','mishamarkofitness',
-'tunedin.athletics','kd_elite_sports','katealcaraz','jamestjunior','gym_map','kris_leonard_',
-'gaylewagner2671','damian_powerbuilder','kleyver_z,annikakrebeduenkel',
-'livetomakehistory','britkneerox','mcvictoryinmyveins','brianna.dixonn','muscle_knight_','oatsovernight','seanmurphy.vfit']
+losers_test_list = []
+losers_test_list_backup = []
+ig.unfollow_list_from_profile(driver,losers_list)
 
-ig.unfollow_list_from_profile(driver,losers_test_list)
-
-print "finished...fake close"
+print "finished...closing now"
+driver.quit()
